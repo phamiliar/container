@@ -1,0 +1,36 @@
+{
+  "name": "phamiliar/container",
+  "description": "Simple and fast service container",
+  "type": "library",
+  "keywords": ["container", "di"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Phamiliar Developers",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^7.3|^8.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.18",
+    "phpunit/phpunit": "^9.5"
+  },
+  "suggest": {},
+  "autoload": {
+    "psr-4": { "Phamiliar\\Container\\": "src/Container/" },
+    "files": []
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Phamiliar\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "archive": {
+    "exclude": ["/tests/"]
+  }
+}

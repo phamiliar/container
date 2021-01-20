@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/9.5/phpunit.xsd"
+  backupGlobals="false"
+  backupStaticAttributes="false"
+  bootstrap="vendor/autoload.php"
+  cacheResult="true"
+  cacheResultFile=".phpunit.result.cache"
+  colors="true"
+  columns="80"
+  convertDeprecationsToExceptions="true"
+  convertErrorsToExceptions="true"
+  convertNoticesToExceptions="true"
+  convertWarningsToExceptions="true"
+  forceCoversAnnotation="true"
+  processIsolation="false"
+  stopOnError="false"
+  stopOnFailure="false"
+  stopOnIncomplete="false"
+  stopOnRisky="false"
+  stopOnSkipped="false"
+  stopOnWarning="false"
+  stopOnDefect="false"
+  failOnRisky="false"
+  failOnWarning="false"
+  beStrictAboutChangesToGlobalState="true"
+  beStrictAboutOutputDuringTests="true"
+  beStrictAboutResourceUsageDuringSmallTests="true"
+  beStrictAboutTestsThatDoNotTestAnything="true"
+  beStrictAboutTodoAnnotatedTests="true"
+  beStrictAboutCoversAnnotation="true"
+  enforceTimeLimit="false"
+  defaultTimeLimit="0"
+  timeoutForSmallTests="1"
+  timeoutForMediumTests="5"
+  timeoutForLargeTests="10"
+  defaultTestSuite=""
+  verbose="true"
+  stderr="false"
+  reverseDefectList="false"
+  registerMockObjectsFromTestArgumentsRecursively="false"
+  executionOrder="default"
+  resolveDependencies="true"
+  testdox="false"
+  noInteraction="false"
+>
+  <testsuites>
+    <testsuite name="Container">
+      <directory>tests/</directory>
+    </testsuite>
+  </testsuites>
+
+  <coverage
+    processUncoveredFiles="true"
+    ignoreDeprecatedCodeUnits="false"
+    disableCodeCoverageIgnore="true"
+  >
+    <include>
+      <directory suffix=".php">src/</directory>
+    </include>
+  </coverage>
+</phpunit>
