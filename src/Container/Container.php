@@ -224,10 +224,9 @@ class Container implements ContainerInterface
             && class_exists($definition)
         ) {
             $instance = new $definition(...$parameters);
-        } elseif (
-            $definition instanceof Closure
-            || is_callable($definition)
-        ) {
+        } elseif ($definition instanceof Closure) {
+            $instance = $definition($this, ...$parameters);
+        } elseif (is_callable($definition)) {
             $instance = $definition(...$parameters);
         } elseif (is_object($definition)) {
             $instance = $definition;

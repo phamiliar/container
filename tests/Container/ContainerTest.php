@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Phamiliar\Container;
 
 use Phamiliar\Container\Container;
+use Phamiliar\Container\ContainerInterface;
 use Phamiliar\Container\Exceptions\AlreadyResolvedException;
 use Phamiliar\Container\Exceptions\MissingDefinitionException;
 use Phamiliar\Container\Exceptions\ResolveFailedException;
@@ -82,9 +83,9 @@ class ContainerTest extends TestCase
      */
     public function testSetHas(): void
     {
-        $name = uniqid('service_', true);
-
         $container = new Container();
+
+        $name = uniqid('service_', true);
 
         static::assertFalse($container->has($name));
 
@@ -104,11 +105,11 @@ class ContainerTest extends TestCase
      */
     public function testSetShared(): void
     {
+        $container = new Container();
+
         $name = uniqid('service_', true);
         $sharedName1 = uniqid('shared_', true);
         $sharedName2 = uniqid('shared_', true);
-
-        $container = new Container();
 
         $container->set($name, SampleService::class);
         $container->set($sharedName1, SampleService::class, true);
@@ -145,9 +146,9 @@ class ContainerTest extends TestCase
      */
     public function testSetResolvedShared(): void
     {
-        $name = uniqid('service_', true);
-
         $container = new Container();
+
+        $name = uniqid('service_', true);
 
         $container->setShared($name, SampleService::class);
 
@@ -167,11 +168,11 @@ class ContainerTest extends TestCase
      */
     public function testGetResolveClassName(): void
     {
+        $container = new Container();
+
         $name = uniqid('service_', true);
         $definition = SampleService::class;
         $expected = SampleService::class;
-
-        $container = new Container();
 
         $container->set($name, $definition);
 
@@ -187,12 +188,12 @@ class ContainerTest extends TestCase
      */
     public function testGetResolveClassNameWithParameters(): void
     {
+        $container = new Container();
+
         $name = uniqid('service_', true);
         $definition = SampleService::class;
         $parameter1 = uniqid('parameter_', true);
         $parameter2 = uniqid('parameter_', true);
-
-        $container = new Container();
 
         $container->set($name, $definition);
 
@@ -215,10 +216,10 @@ class ContainerTest extends TestCase
      */
     public function testGetResolveObject(): void
     {
+        $container = new Container();
+
         $name = uniqid('service_', true);
         $definition = new SampleService();
-
-        $container = new Container();
 
         $container->set($name, $definition);
 
@@ -234,13 +235,13 @@ class ContainerTest extends TestCase
      */
     public function testGetResolveClosure(): void
     {
+        $container = new Container();
+
         $name = uniqid('service_', true);
         $definition = static function (): SampleService {
             return new SampleService();
         };
         $expected = SampleService::class;
-
-        $container = new Container();
 
         $container->set($name, $definition);
 
@@ -256,14 +257,19 @@ class ContainerTest extends TestCase
      */
     public function testGetResolveClosureWithParameters(): void
     {
+        $container = new Container();
+
         $name = uniqid('service_', true);
-        $definition = static function (...$parameters): SampleService {
+        $definition = static function (
+            ContainerInterface $serviceContainer,
+            ...$parameters
+        ) use ($container): SampleService {
+            static::assertSame($container, $serviceContainer);
+
             return new SampleService(...$parameters);
         };
         $parameter1 = uniqid('parameter_', true);
         $parameter2 = uniqid('parameter_', true);
-
-        $container = new Container();
 
         $container->set($name, $definition);
 
@@ -286,11 +292,11 @@ class ContainerTest extends TestCase
      */
     public function testGetResolveCallable(): void
     {
+        $container = new Container();
+
         $name = uniqid('service_', true);
         $definition = [SampleService::class, 'create'];
         $expected = SampleService::class;
-
-        $container = new Container();
 
         $container->set($name, $definition);
 
@@ -306,12 +312,12 @@ class ContainerTest extends TestCase
      */
     public function testGetResolveCallableWithParameters(): void
     {
+        $container = new Container();
+
         $name = uniqid('service_', true);
         $definition = [SampleService::class, 'create'];
         $parameter1 = uniqid('parameter_', true);
         $parameter2 = uniqid('parameter_', true);
-
-        $container = new Container();
 
         $container->set($name, $definition);
 
@@ -334,9 +340,9 @@ class ContainerTest extends TestCase
      */
     public function testGetNonShared(): void
     {
-        $name = uniqid('service_', true);
-
         $container = new Container();
+
+        $name = uniqid('service_', true);
 
         $container->set($name, SampleService::class);
 
@@ -355,9 +361,9 @@ class ContainerTest extends TestCase
      */
     public function testGetShared(): void
     {
-        $name = uniqid('service_', true);
-
         $container = new Container();
+
+        $name = uniqid('service_', true);
 
         $container->setShared($name, SampleService::class);
 
@@ -376,11 +382,11 @@ class ContainerTest extends TestCase
      */
     public function testGetSharedWithParameters(): void
     {
+        $container = new Container();
+
         $name = uniqid('service_', true);
         $parameter1 = uniqid('parameter_', true);
         $parameter2 = uniqid('parameter_', true);
-
-        $container = new Container();
 
         $container->setShared($name, SampleService::class);
 
@@ -403,9 +409,9 @@ class ContainerTest extends TestCase
      */
     public function testGetNotFound(): void
     {
-        $name = uniqid('service_', true);
-
         $container = new Container();
+
+        $name = uniqid('service_', true);
 
         $this->expectException(ServiceNotFoundException::class);
 
@@ -421,9 +427,9 @@ class ContainerTest extends TestCase
      */
     public function testGetFailed(): void
     {
-        $name = uniqid('service_', true);
-
         $container = new Container();
+
+        $name = uniqid('service_', true);
 
         $container->set($name, $name);
 
@@ -442,9 +448,9 @@ class ContainerTest extends TestCase
      */
     public function testRemove(): void
     {
-        $name = uniqid('service_', true);
-
         $container = new Container();
+
+        $name = uniqid('service_', true);
 
         $container->set($name, SampleService::class);
 
@@ -464,9 +470,9 @@ class ContainerTest extends TestCase
      */
     public function testRemoveShared(): void
     {
-        $service = uniqid('service_', true);
-
         $container = new Container();
+
+        $service = uniqid('service_', true);
 
         $container->setShared($service, SampleService::class);
 
@@ -490,6 +496,8 @@ class ContainerTest extends TestCase
      */
     public function testGetServices(): void
     {
+        $container = new Container();
+
         $service1 = uniqid('service_', true);
         $service2 = uniqid('service_', true);
         $definition1 = static function (): SampleService {
@@ -514,8 +522,6 @@ class ContainerTest extends TestCase
                 'isShared' => true,
             ],
         ];
-
-        $container = new Container();
 
         static::assertEmpty($container->getServices());
 
