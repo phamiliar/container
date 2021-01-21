@@ -59,6 +59,10 @@ class Container implements ContainerInterface
      */
     public static function getDefault(): ?ContainerInterface
     {
+        if (!static::$default) {
+            static::$default = new static();
+        }
+
         return static::$default;
     }
 
@@ -71,7 +75,7 @@ class Container implements ContainerInterface
      */
     public function __construct()
     {
-        if (!static::getDefault()) {
+        if (!static::$default) {
             static::setDefault($this);
         }
     }

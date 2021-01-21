@@ -29,24 +29,28 @@ class ContainerTest extends TestCase
      */
     public function testDefault(): void
     {
+        $containerDefault1 = Container::getDefault();
         $container1 = new Container();
         $container2 = new Container();
 
-        Container::resetDefault();
-
-        static::assertNull(Container::getDefault());
-
-        Container::setDefault($container1);
-
-        static::assertSame($container1, Container::getDefault());
+        static::assertSame($containerDefault1, Container::getDefault());
 
         Container::setDefault($container2);
 
         static::assertSame($container2, Container::getDefault());
 
+        Container::setDefault($container1);
+
+        static::assertSame($container1, Container::getDefault());
+
         Container::resetDefault();
 
-        static::assertNull(Container::getDefault());
+        $containerDefault2 = Container::getDefault();
+
+        static::assertNotSame($container1, Container::getDefault());
+        static::assertNotSame($container2, Container::getDefault());
+        static::assertNotSame($containerDefault1, Container::getDefault());
+        static::assertSame($containerDefault2, Container::getDefault());
     }
 
     /**
@@ -61,11 +65,11 @@ class ContainerTest extends TestCase
     {
         Container::resetDefault();
 
-        static::assertNull(Container::getDefault());
+        $container1 = new Container();
+        $container2 = new Container();
 
-        $container = new Container();
-
-        static::assertSame($container, Container::getDefault());
+        static::assertSame($container1, Container::getDefault());
+        static::assertNotSame($container2, Container::getDefault());
     }
 
     /**

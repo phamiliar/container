@@ -24,20 +24,15 @@ class ContainerAwareTraitTest extends TestCase
      */
     public function testSetGetContainer(): void
     {
-        $container1 = new Container();
-        $container2 = new Container();
-        Container::resetDefault();
+        $containerDefault = Container::getDefault();
+        $container = new Container();
 
         $containerAware = new ContainerAwareClass();
 
-        static::assertNull($containerAware->getContainer());
+        static::assertSame($containerDefault, $containerAware->getContainer());
 
-        Container::setDefault($container1);
+        $containerAware->setContainer($container);
 
-        static::assertSame($container1, $containerAware->getContainer());
-
-        $containerAware->setContainer($container2);
-
-        static::assertSame($container2, $containerAware->getContainer());
+        static::assertSame($container, $containerAware->getContainer());
     }
 }

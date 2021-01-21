@@ -32,9 +32,9 @@ trait ContainerAwareTrait
     /**
      * Gets container
      *
-     * @return ContainerInterface|null
+     * @return ContainerInterface
      */
-    public function getContainer(): ?ContainerInterface
+    public function getContainer(): ContainerInterface
     {
         if (!$this->container) {
             $this->container = Container::getDefault();
