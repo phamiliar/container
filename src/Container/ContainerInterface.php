@@ -76,6 +76,13 @@ interface ContainerInterface
     /**
      * Registers service in container
      *
+     * If service definition not specified, but service name is class name,
+     * container will use it as definition.
+     * Example:
+     * <code>
+     * $container->set(Router::class);
+     * </code>
+     *
      * @param string $name Service name
      * @param mixed $definition Service definition
      * @param bool $isShared Shared state
@@ -85,7 +92,7 @@ interface ContainerInterface
      */
     public function set(
         string $name,
-        $definition,
+        $definition = null,
         bool $isShared = false
     ): ContainerInterface;
 
@@ -98,7 +105,7 @@ interface ContainerInterface
      * @throws AlreadyResolvedException If shared service already has registered and resolved
      * @return $this
      */
-    public function setShared(string $name, $definition): ContainerInterface;
+    public function setShared(string $name, $definition = null): ContainerInterface;
 
     /**
      * Removes service from container

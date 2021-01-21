@@ -133,7 +133,25 @@ class ContainerTest extends TestCase
 
         $this->expectException(MissingDefinitionException::class);
 
-        (new Container())->set($name, '');
+        (new Container())->set($name);
+    }
+
+    /**
+     * Test of service setter with missing definition
+     *
+     * @return void
+     *
+     * @covers ::set
+     */
+    public function testSetMissingDefinitionClassName(): void
+    {
+        $name = SampleService::class;
+
+        $container = new Container();
+
+        $container->set($name);
+
+        static::assertInstanceOf($name, $container->get($name));
     }
 
     /**

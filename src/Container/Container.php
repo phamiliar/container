@@ -85,9 +85,16 @@ class Container implements ContainerInterface
      */
     public function set(
         string $name,
-        $definition,
+        $definition = null,
         bool $isShared = false
     ): ContainerInterface {
+        if (
+            !$definition
+            && class_exists($name)
+        ) {
+            $definition = $name;
+        }
+
         if (!$definition) {
             throw new MissingDefinitionException(sprintf(
                 'Definition for service "%s" is missing',
@@ -110,7 +117,7 @@ class Container implements ContainerInterface
     /**
      * {@inheritDoc}
      */
-    public function setShared(string $name, $definition): ContainerInterface
+    public function setShared(string $name, $definition = null): ContainerInterface
     {
         return $this->set($name, $definition, true);
     }
