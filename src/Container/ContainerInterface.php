@@ -124,12 +124,12 @@ interface ContainerInterface
      * Returns same instance for "shared" services
      *
      * @param string $name Service name
-     * @param mixed[] $parameters Service parameters
+     * @param mixed[] ...$parameters Service parameters
      * @throws ServiceNotFoundException If service is not found
      * @throws ResolveFailedException If service can not be resolved
      * @return mixed
      */
-    public function get(string $name, array $parameters = []);
+    public function get(string $name, ...$parameters);
 
     /**
      * Checks whether service shared

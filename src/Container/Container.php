@@ -139,7 +139,7 @@ class Container implements ContainerInterface
     /**
      * {@inheritDoc}
      */
-    public function get(string $name, array $parameters = [])
+    public function get(string $name, ...$parameters)
     {
         return array_key_exists($name, $this->instances)
             ? $this->instances[$name]

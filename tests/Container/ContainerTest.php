@@ -199,11 +199,11 @@ class ContainerTest extends TestCase
 
         static::assertSame(
             $parameter1,
-            $container->get($name, [$parameter1])->property
+            $container->get($name, $parameter1)->property
         );
         static::assertSame(
             $parameter2,
-            $container->get($name, [$parameter2])->property
+            $container->get($name, $parameter2)->property
         );
     }
 
@@ -275,11 +275,11 @@ class ContainerTest extends TestCase
 
         static::assertSame(
             $parameter1,
-            $container->get($name, [$parameter1])->property
+            $container->get($name, $parameter1)->property
         );
         static::assertSame(
             $parameter2,
-            $container->get($name, [$parameter2])->property
+            $container->get($name, $parameter2)->property
         );
     }
 
@@ -323,11 +323,11 @@ class ContainerTest extends TestCase
 
         static::assertSame(
             $parameter1,
-            $container->get($name, [$parameter1])->property
+            $container->get($name, $parameter1)->property
         );
         static::assertSame(
             $parameter2,
-            $container->get($name, [$parameter2])->property
+            $container->get($name, $parameter2)->property
         );
     }
 
@@ -392,11 +392,11 @@ class ContainerTest extends TestCase
 
         static::assertSame(
             $parameter1,
-            $container->get($name, [$parameter1])->property
+            $container->get($name, $parameter1)->property
         );
         static::assertSame(
             $parameter1,
-            $container->get($name, [$parameter2])->property
+            $container->get($name, $parameter2)->property
         );
     }
 
