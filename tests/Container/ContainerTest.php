@@ -130,10 +130,11 @@ class ContainerTest extends TestCase
     public function testSetMissingDefinition(): void
     {
         $name = uniqid('service_', true);
+        $definition = [uniqid('', true)];
 
         $this->expectException(MissingDefinitionException::class);
 
-        (new Container())->set($name);
+        (new Container())->set($name, $definition);
     }
 
     /**

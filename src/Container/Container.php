@@ -88,14 +88,15 @@ class Container implements ContainerInterface
         $definition = null,
         bool $isShared = false
     ): ContainerInterface {
-        if (
-            !$definition
-            && class_exists($name)
-        ) {
+        if (!$definition) {
             $definition = $name;
         }
 
-        if (!$definition) {
+        if (
+            !is_string($definition)
+            && !is_callable($definition)
+            && !is_object($definition)
+        ) {
             throw new MissingDefinitionException(sprintf(
                 'Definition for service "%s" is missing',
                 $name,

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Phamiliar\Container\Exceptions;
 
-use OutOfRangeException;
+use InvalidArgumentException;
 
 /**
  * Will be thrown in replacement attempt of already resolved shared service
  */
-class AlreadyResolvedException extends OutOfRangeException implements ContainerException
+class AlreadyResolvedException extends InvalidArgumentException implements ContainerException
 {
 }
