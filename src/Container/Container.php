@@ -20,7 +20,7 @@ class Container implements ContainerInterface
     /**
      * Default container
      *
-     * @var ContainerInterface|null
+     * @var ContainerInterface
      */
     protected static $default;
 
@@ -57,7 +57,7 @@ class Container implements ContainerInterface
     /**
      * {@inheritDoc}
      */
-    public static function getDefault(): ?ContainerInterface
+    public static function getDefault(): ContainerInterface
     {
         if (!static::$default) {
             static::$default = new static();
